@@ -38,74 +38,76 @@ int main() {
   string pilihan_pemilik;
   cout << "Pemilik Toko: (Ketik 1 untuk buka dan 2 untuk tutup) ";
   cin >> pilihan_pemilik;
-
-  while (pilihan_pemilik != "2") {
-    if (pilihan_pemilik == "1") {
-      string nama_pelanggan;
-      cout << "Masukkan nama pelanggan: ";
-      cin >> nama_pelanggan;
-
-      string pilihan_pelanggan;
-      cout << "Pelanggan: (lihat menu(ketik 1) / beli(ketik 2) / keluar(ketik 3)) ";
-      cin >> pilihan_pelanggan;
-
-      while (pilihan_pelanggan != "3") {
-        if (pilihan_pelanggan == "1") {
-          cout << "ID\tNama\tKategori\tHarga" << endl;
-          for (menu_item item : menu) {
-            cout << item.ID << "\t" << item.nama << "\t" << item.kategori << "\t" << item.harga << endl;
-          }
-        } else if (pilihan_pelanggan == "2") {
-          string nama_menu_atau_ID;
-          cout << "Masukkan nama atau ID menu: ";
-          cin >> nama_menu_atau_ID;
-
-          map<string, int> nama_ke_ID;
-          for (menu_item item : menu) {
-            nama_ke_ID[item.nama] = item.ID;
-          }
-
-          int ID;
-          if (nama_ke_ID.count(nama_menu_atau_ID) > 0) {
-            ID = nama_ke_ID[nama_menu_atau_ID];
-          } else {
-            ID = stoi(nama_menu_atau_ID);
-          }
-
-          int jumlah;
-          cout << "Masukkan jumlah: ";
-          cin >> jumlah;
-
-          menu_item item_dipilih;
-          for (menu_item item : menu)
-  {
-    if (item.ID == ID) {
-      item_dipilih = item;
-    break;
-  }
-}
-      int total_harga = jumlah * item_dipilih.harga;
-
-      transaksi t = {nama_pelanggan, item_dipilih.nama, jumlah, total_harga};
-      riwayat_penjualan.push_back(t);
-
-      cout << "Total harga: " << total_harga << endl;
+  
+  if (pilihan_pemilik == "2") {
+    cout << "Tidak Ada Penjualan" << endl;
+  } else {
+      while (pilihan_pemilik != "2") {
+        if (pilihan_pemilik == "1") {
+          string nama_pelanggan;
+          cout << "Masukkan nama pelanggan: ";
+          cin >> nama_pelanggan;
+    
+          string pilihan_pelanggan;
+          cout << "Pelanggan: (lihat menu(ketik 1) / beli(ketik 2) / keluar(ketik 3)) ";
+          cin >> pilihan_pelanggan;
+    
+          while (pilihan_pelanggan != "3") {
+            if (pilihan_pelanggan == "1") {
+              cout << "ID\tNama\tKategori\tHarga" << endl;
+              for (menu_item item : menu) {
+                cout << item.ID << "\t" << item.nama << "\t" << item.kategori << "\t" << item.harga << endl;
+              }
+            } else if (pilihan_pelanggan == "2") {
+              string nama_menu_atau_ID;
+              cout << "Masukkan nama atau ID menu: ";
+              cin >> nama_menu_atau_ID;
+    
+              map<string, int> nama_ke_ID;
+              for (menu_item item : menu) {
+                nama_ke_ID[item.nama] = item.ID;
+              }
+    
+              int ID;
+              if (nama_ke_ID.count(nama_menu_atau_ID) > 0) {
+                ID = nama_ke_ID[nama_menu_atau_ID];
+              } else {
+                ID = stoi(nama_menu_atau_ID);
+              }
+    
+              int jumlah;
+              cout << "Masukkan jumlah: ";
+              cin >> jumlah;
+    
+              menu_item item_dipilih;
+              for (menu_item item : menu)
+      {
+        if (item.ID == ID) {
+          item_dipilih = item;
+        break;
+      }
     }
-
-    cout << "Pelanggan: (lihat menu(ketik 1) / beli(ketik 2) / keluar(ketik 3)) ";
-    cin >> pilihan_pelanggan;
+          int total_harga = 0 + jumlah * item_dipilih.harga;
+    
+          transaksi t = {nama_pelanggan, item_dipilih.nama, jumlah, total_harga};
+          riwayat_penjualan.push_back(t);
+    
+          cout << "Total harga: " << total_harga << endl;
+        }
+    
+        cout << "Pelanggan: (lihat menu(ketik 1) / beli(ketik 2) / keluar(ketik 3)) ";
+        cin >> pilihan_pelanggan;
+      }
+    }
+    
+    cout << "Pemilik Toko: (Ketik 1 untuk buka dan 2 untuk tutup) ";
+    cin >> pilihan_pemilik;
+    }
+    cout << "Riwayat Penjualan:" << endl;
+    cout << "Nama Pelanggan\tNama Menu\t\tJumlah\t\tTotal Harga" << endl;
+    for (transaksi t : riwayat_penjualan) {
+    cout << t.nama_pelanggan << "\t\t" << t.nama_menu << "\t\t" << t.jumlah << "\t\t" << t.total_harga << endl;
+    }
   }
-}
-
-cout << "Pemilik Toko: (Ketik 1 untuk buka dan 2 untuk tutup) ";
-cin >> pilihan_pemilik;
-}
-
-cout << "Riwayat Penjualan:" << endl;
-cout << "Nama Pelanggan\tNama Menu\t\tJumlah\t\tTotal Harga" << endl;
-for (transaksi t : riwayat_penjualan) {
-cout << t.nama_pelanggan << "\t\t" << t.nama_menu << "\t\t" << t.jumlah << "\t\t" << t.total_harga << endl;
-}
-
 return 0;
 }
